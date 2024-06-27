@@ -22,7 +22,12 @@ jobs:
         pip install python-leetcode
     - name: Run update.py
       run: |
-        python coding_practice/update.py
+        pwd
+        ls -R
+        echo "Current directory contents:"
+        ls
+        echo "Searching for update.py:"
+        find . -name update.py
       continue-on-error: true  # 스크립트 실행 중 오류가 발생해도 계속 진행
     - name: Check for errors
       run: |
