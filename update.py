@@ -13,26 +13,22 @@ def main():
         
         directories = []
         solveds = []
-        for root, dirs, files in os.walk("."): # 현재 디렉토리부터 시작
+        
+        # 현재 스크립트의 위치를 기준으로 상위 디렉토리로 이동
+        os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        
+        for root, dirs, files in os.walk("coding_practice"):
             dirs.sort()
-            if root == '.':
-                for dir in ('.git', '.github'):
-                    try:
-                        dirs.remove(dir)
-                    except ValueError:
-                        pass
-                continue
-            
             print(f"Processing directory: {root}")  # 디버깅을 위한 로그 추가
             
             category = os.path.basename(root)
             
-            if category == 'images':
+            if category in ['.git', '.github', 'images']:
                 continue
             
             directory = os.path.basename(os.path.dirname(root))
             
-            if directory == '.':
+            if directory == 'coding_practice':
                 continue
                 
             if directory not in directories:
@@ -54,13 +50,15 @@ def main():
                         # 프로그래머스 문제 번호 추출 (예: "120807. 숫자 비교하기" -> "120807")
                         problem_number = category.split('.')[0]
                     if problem_number not in solveds:
-                        content += f"|{problem_number}|[링크]({parse.quote(os.path.join(root, file))})|\n"
+                        relative_path = os.path.relpath(os.path.join(root, file), "coding_practice")
+                        content += f"|{problem_number}|[링크]({parse.quote(relative_path)})|\n"
                         solveds.append(problem_number)
                         print(f"Added problem: {problem_number}")  # 디버깅을 위한 로그 추가
         
-        with open("README.md", "w", encoding="utf-8") as fd:
+        readme_path = os.path.join("coding_practice", "README.md")
+        with open(readme_path, "w", encoding="utf-8") as fd:
             fd.write(content)
-        print("README.md 업데이트 완료")
+        print(f"README.md 업데이트 완료: {readme_path}")
     except Exception as e:
         print(f"오류 발생: {e}", file=sys.stderr)
         sys.exit(1)
