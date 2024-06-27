@@ -1,5 +1,4 @@
 name: Update readme
-
 on:
   push:
     branches: [ "main" ]
@@ -12,9 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4 # actions/checkout 최신 버전 사용
+    - uses: actions/checkout@v4
     - name: Set up Python 3.10
-      uses: actions/setup-python@v4 # actions/setup-python 최신 버전 사용
+      uses: actions/setup-python@v5  # v5로 업데이트
       with:
         python-version: "3.10"
     - name: Install dependencies
@@ -24,14 +23,19 @@ jobs:
     - name: Run update.py
       run: |
         python coding_practice/update.py
+      continue-on-error: true  # 스크립트 실행 중 오류가 발생해도 계속 진행
+    - name: Check for errors
+      run: |
+        if [ $? -ne 0 ]; then
+          echo "Error occurred during script execution"
+          exit 1
+        fi
     - name: Commit changes
       run: |
         git config --global user.name 'cumulus308'
         git config --global user.email 'rhrudals312@naver.com'
         git add -A
-        git commit -am "auto update README.md"
+        git diff --quiet && git diff --staged --quiet || git commit -am "auto update README.md"
     - name: Push changes
       run: |
         git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
