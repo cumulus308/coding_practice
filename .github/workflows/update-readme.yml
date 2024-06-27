@@ -20,9 +20,10 @@ jobs:
         pip install python-leetcode
     - name: Run update.py
       run: |
-        python coding_practice/update.py
-      continue-on-error: true
-    - name: Check for errors
+        pwd
+        ls -R
+        python update.py
+      working-directory: ./coding_practice    - name: Check for errors
       run: |
         if [ $? -ne 0 ]; then
           echo "Error occurred during script execution"
