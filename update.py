@@ -27,7 +27,7 @@ def main():
             category = os.path.basename(root)
             
             # 불필요한 디렉토리 건너뛰기
-            if category in ['.git', '.github', 'logs', 'refs', 'remotes', 'objects']:
+            if category in ['.', '.git', '.github', 'logs', 'refs', 'remotes', 'objects']:
                 continue
             
             directory = os.path.basename(os.path.dirname(root))
@@ -38,8 +38,6 @@ def main():
             if directory not in directories:
                 if directory in ["백준", "프로그래머스"]:
                     content += f"## 📚 {directory}\n"
-                    content += "| 문제번호 | 링크 |\n"
-                    content += "| ----- | ----- |\n"
                 elif directory not in ['.', '.git', '.github']:  # 최상위 디렉토리와 Git 관련 디렉토리 제외
                     content += f"### 🚀 {directory}\n"
                     content += "| 문제번호 | 링크 |\n"
