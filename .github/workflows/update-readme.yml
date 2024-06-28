@@ -27,17 +27,21 @@ jobs:
         echo "Python version:"
         python --version
     
+    - name: Set execute permission for update.py
+      run: chmod +x coding_practice/update.py
+    
     - name: Run update.py
       run: |
-        python coding_practice/update.py
-      continue-on-error: true
+        pwd
+        ls -R
+        python update.py
+      working-directory: ./coding_practice
     
     - name: Check for errors
+      if: failure()
       run: |
-        if [ $? -ne 0 ]; then
-          echo "Error occurred during script execution"
-          exit 1
-        fi
+        echo "Error occurred during script execution"
+        exit 1
     
     - name: Commit changes
       run: |
