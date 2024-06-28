@@ -4,8 +4,7 @@ from urllib import parse
 import sys
 import traceback
 
-HEADER = """# 
-# 백준 & 프로그래머스 문제 풀이 목록
+HEADER = """# 백준 & 프로그래머스 문제 풀이 목록
 """
 
 def main():
@@ -27,7 +26,7 @@ def main():
             category = os.path.basename(root)
             
             # 불필요한 디렉토리 건너뛰기
-            if category in ['.', '.git', '.github', 'logs', 'refs', 'remotes', 'objects']:
+            if category in ['.', '.git', '.github']:
                 continue
             
             directory = os.path.basename(os.path.dirname(root))
