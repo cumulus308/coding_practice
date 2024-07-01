@@ -1,7 +1,7 @@
 #!/usr/bin/env python 
 import os
 from urllib import parse
-from itertools import zip_longest
+from collections import defaultdict
 
 # README 파일의 헤더
 HEADER = """# 백준 & 프로그래머스 문제 풀이 목록
@@ -12,50 +12,59 @@ EXCLUDE_DIRS = {'', '.', '.git', '.github', 'logs', 'refs', 'remotes', 'objects'
 def create_table(problem_links):
     table = "| 문제번호 | 링크 | 문제번호 | 링크 |\n"
     table += "| ----- | ----- | ----- | ----- |\n"
-    for row in zip_longest(*[iter(problem_links)]*2, fillvalue=('', '')):
-        table += f"|{row[0][0]}|[링크]({row[0][1]})|{row[1][0]}|[링크]({row[1][1]})|\n"
+    for i in range(0, len(problem_links), 2):
+        row = problem_links[i:i+2]
+        table += f"|{row[0][0]}|[링크]({row[0][1]})|"
+        if len(row) > 1:
+            table += f"{row[1][0]}|[링크]({row[1][1]})|\n"
+        else:
+            table += "|||\n"
     return table
 
 def main():
     print("스크립트 실행 시작")
     content = HEADER
     
-    baekjoon_links = []
-    programmers_links = []
+    baekjoon_links = defaultdict(list)
+    programmers_links = defaultdict(list)
     
     print(f"현재 작업 디렉토리: {os.getcwd()}")
     
     # 디렉토리 트리 순회
     for root, dirs, files in os.walk("."):
-        # 제외할 디렉토리 필터링
         dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
         print(f"Processing directory: {root}")
         
-        category = os.path.basename(root) # 현재 디렉토리 이름
-        directory = os.path.basename(os.path.dirname(root)) # 상위 디렉토리 이름
-        
-        # 불필요한 디렉토리 건너뛰기
-        if category in EXCLUDE_DIRS or directory in EXCLUDE_DIRS:
+        parts = root.split(os.sep)
+        if len(parts) < 3:
             continue
         
-        # 파일 처리
+        platform = parts[1]  # '백준' 또는 '프로그래머스'
+        sub_category = parts[2]  # 'Bronze' 또는 '0', '1' 등
+        
         for file in files:
-            if file.endswith('.py'): # 파이썬 파일만 처리
-                problem_number = category if directory != "프로그래머스" else category.split('.')[0]
+            if file.endswith('.py'):
+                problem_number = os.path.splitext(file)[0].split('.')[0]
                 relative_path = os.path.relpath(os.path.join(root, file), ".")
-                if "프로그래머스" in relative_path:
-                    programmers_links.append((problem_number, parse.quote(relative_path)))
-                elif "백준" in relative_path:
-                    baekjoon_links.append((problem_number, parse.quote(relative_path)))
-                print(f"Added problem: {problem_number}")
+                if platform == "프로그래머스":
+                    programmers_links[sub_category].append((problem_number, parse.quote(relative_path)))
+                elif platform == "백준":
+                    baekjoon_links[sub_category].append((problem_number, parse.quote(relative_path)))
+                print(f"Added problem: {problem_number} in {platform}/{sub_category}")
     
     # 프로그래머스 테이블 생성
     content += "## 📚 프로그래머스\n"
-    content += create_table(programmers_links)
+    for level, problems in sorted(programmers_links.items()):
+        content += f"### 🚀 레벨 {level}\n"
+        content += create_table(sorted(problems))
+        content += "\n"
     
     # 백준 테이블 생성
-    content += "\n## 📚 백준\n"
-    content += create_table(baekjoon_links)
+    content += "## 📚 백준\n"
+    for difficulty, problems in sorted(baekjoon_links.items()):
+        content += f"### 🚀 {difficulty}\n"
+        content += create_table(sorted(problems))
+        content += "\n"
     
     print("README.md 파일 작성 시작")
     
