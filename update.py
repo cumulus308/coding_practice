@@ -10,7 +10,7 @@ HEADER = """# 백준 & 프로그래머스 문제 풀이 목록
 EXCLUDE_DIRS = {'', '.', '.git', '.github', 'logs', 'refs', 'remotes', 'objects'}
 
 def create_table(problem_links):
-    table = "| 문제번호 | 링크 | 문제번호 | 링크 |\n"
+    table = "| 문제이름 | 링크 | 문제이름 | 링크 |\n"
     table += "| ----- | ----- | ----- | ----- |\n"
     for i in range(0, len(problem_links), 2):
         row = problem_links[i:i+2]
