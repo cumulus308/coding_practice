@@ -1,8 +1,3 @@
 def solution(array, height):
-    ss = 0
-    for i in array:
-        if i > height:
-            ss += 1
-    answer = ss
-    return answer
+    return len([ x for x in array if x>height])
 
