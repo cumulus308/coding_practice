@@ -66,5 +66,6 @@
 | 문제이름 | 링크 | 문제이름 | 링크 |
 | ----- | ----- | ----- | ----- |
 |A×B|[링크](%EB%B0%B1%EC%A4%80/Bronze/10998.%E2%80%85A%C3%97B/A%C3%97B.py)|A＋B|[링크](%EB%B0%B1%EC%A4%80/Bronze/1000.%E2%80%85A%EF%BC%8BB/A%EF%BC%8BB.py)|
-|A－B|[링크](%EB%B0%B1%EC%A4%80/Bronze/1001.%E2%80%85A%EF%BC%8DB/A%EF%BC%8DB.py)|？？！|[링크](%EB%B0%B1%EC%A4%80/Bronze/10926.%E2%80%85%EF%BC%9F%EF%BC%9F%EF%BC%81/%EF%BC%9F%EF%BC%9F%EF%BC%81.py)|
+|A－B|[링크](%EB%B0%B1%EC%A4%80/Bronze/1001.%E2%80%85A%EF%BC%8DB/A%EF%BC%8DB.py)|나머지|[링크](%EB%B0%B1%EC%A4%80/Bronze/10430.%E2%80%85%EB%82%98%EB%A8%B8%EC%A7%80/%EB%82%98%EB%A8%B8%EC%A7%80.py)|
+|？？！|[링크](%EB%B0%B1%EC%A4%80/Bronze/10926.%E2%80%85%EF%BC%9F%EF%BC%9F%EF%BC%81/%EF%BC%9F%EF%BC%9F%EF%BC%81.py)||||
 
