@@ -4,3 +4,4 @@ def solution(myString):
     for i in a:
         answer.append(len(i))
     return answer
+    # return [ len(i) for i in myString.split('x')]
