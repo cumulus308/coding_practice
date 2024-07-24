@@ -5,8 +5,5 @@ def solution(arr, k):
             answer.append(i)
             if len(answer) == k:
                 return answer
-    if len(answer) < k:
-        num = k - len(answer)
-        answer += [-1] * num
         
-    return answer
+    return answer + ([-1] * (k - len(answer)))
