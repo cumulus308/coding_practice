@@ -14,4 +14,4 @@ def solution(code):
                 ret += code[i]
         
                 
-    return ret if ret else "EMPTY"
+    return ret or "EMPTY"
