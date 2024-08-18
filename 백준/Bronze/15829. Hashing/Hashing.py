@@ -1,7 +1,9 @@
 # Hashing # 15829번
 L = int(input())
-strings = input()
+string = input()
+r = 31
+m = 1234567891
 answer = 0
-for i, string in enumerate(strings):
-    answer += (ord(string)-ord('a')+1) * (31**i)
-print(answer)
+for i in range(L):
+    answer += ((ord(string[i])-ord('a')+1) * (r**i) )
+print(answer%m)
