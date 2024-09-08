@@ -1,19 +1,13 @@
 import sys
 
 N = int(input())
-people = []
+people = [tuple(map(int, sys.stdin.readline().split())) for _ in range(N)]
 
-for _ in range(N):
-    weight, height = map(int, sys.stdin.readline().split())
-    people.append((weight, height))
-
-ranks = []
+ranks = [1] * N
 for i in range(N):
-    rank = 1
     for j in range(N):
         if i != j:
             if people[j][0] > people[i][0] and people[j][1] > people[i][1]:
-                rank += 1
-    ranks.append(rank)
+                ranks[i] += 1
 
 print(' '.join(map(str, ranks)))
